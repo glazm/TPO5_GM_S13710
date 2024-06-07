@@ -6,9 +6,10 @@ import java.text.*;
 
 public class Time1 extends HttpServlet {
 
-    public void doGet(HttpServletRequest request,
-                      HttpServletResponse response)
-            throws ServletException, java.io.IOException
+
+    public void serviceRequest(HttpServletRequest request,
+                                HttpServletResponse response)
+                                throws ServletException, java.io.IOException
     {
         // Jaki jest preferowany język klienta?
         Locale locale = request.getLocale();
@@ -31,6 +32,12 @@ public class Time1 extends HttpServlet {
         out.println("<h2>" + "Pierwszy" + "<br>" + "Servlet" + "<br>" );
         out.println(getDate(locale) + "</h2>");
         out.close();
+    }
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response)
+            throws ServletException, java.io.IOException
+    {
+        serviceRequest(request,response);
     }
 
 
