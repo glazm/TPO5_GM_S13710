@@ -2,7 +2,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.PrintWriter;
 
-public class GetRequestServlet extends HttpServlet {
+public class PrepareResultServlet extends HttpServlet {
     private ServletContext context;
 
     public void init(){
@@ -28,22 +28,27 @@ public class GetRequestServlet extends HttpServlet {
         out.println("<br><input type=\"submit\" value=\"Wyszukaj\">");
         out.println("</form>");
 
-        String param = request.getParameter("rodzaj");
-        if(param == null) return;
+        out.println("<table cellpadding=\"3\" border=\"1\"><tr><th>Nazwa</th>");
+        out.println("<th>Rocznik</th>");
+        out.println("<th>Pochodzenie</th></tr>");
+        out.println("<tr><td>Dane1</td>");
+        out.println("<td>Dane1</td>");
+        out.println("<td>Dane1</td></tr>");
+        out.println("<tr><td>Dane1</td>");
+        out.println("<td>Dane1</td>");
+        out.println("<td>Dane1</td></tr>");
+        out.println("</table>");
 
-        if(param!=null) {
-            out.println("Wyszukujesz " + param);
-        }
     }
 
     public void doGet(HttpServletRequest request,
-                      HttpServletResponse response)
+                               HttpServletResponse response)
             throws ServletException, java.io.IOException
     {
         serviceRequest(request,response);
     }
     public void doPost(HttpServletRequest request,
-                      HttpServletResponse response)
+                               HttpServletResponse response)
             throws ServletException, java.io.IOException
     {
         serviceRequest(request,response);
