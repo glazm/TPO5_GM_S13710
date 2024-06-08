@@ -4,20 +4,25 @@ import java.io.PrintWriter;
 
 public class GetRequestServlet extends HttpServlet {
     private ServletContext context;
+    private String searchDataServlet;
 
     public void init(){
         context = getServletContext();
+
+        searchDataServlet = context.getInitParameter("searchDataServlet");
     }
 
     public void serviceRequest(HttpServletRequest request,
                                HttpServletResponse response)
             throws ServletException, java.io.IOException
     {
-        request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("ISO-8859-2");
 
         HttpSession session = request.getSession();
 
-        response.setContentType("text/html; charset=UTF-8");
+        response.setContentType("text/html; charset=ISO-8859-2");
+
+
 //        response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -33,7 +38,10 @@ public class GetRequestServlet extends HttpServlet {
 
         if(param!=null) {
             out.println("Wyszukujesz " + param);
+            session.setAttribute("rodzaj", param);
         }
+        RequestDispatcher disp = context.getRequestDispatcher(searchDataServlet);
+        disp.forward(request,response);
     }
 
     public void doGet(HttpServletRequest request,

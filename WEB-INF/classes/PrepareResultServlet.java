@@ -13,11 +13,15 @@ public class PrepareResultServlet extends HttpServlet {
                                HttpServletResponse response)
             throws ServletException, java.io.IOException
     {
-        request.setCharacterEncoding("UTF-8");
+        String getRequestServlet = context.getInitParameter("getRequestServlet");
+        RequestDispatcher disp = context.getRequestDispatcher(getRequestServlet);
+        disp.include(request,response);
+
+        request.setCharacterEncoding("ISO-8859-2");
 
         HttpSession session = request.getSession();
 
-        response.setContentType("text/html; charset=UTF-8");
+        response.setContentType("text/html; charset=ISO-8859-2");
 //        response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -38,6 +42,9 @@ public class PrepareResultServlet extends HttpServlet {
         out.println("<td>Dane1</td>");
         out.println("<td>Dane1</td></tr>");
         out.println("</table>");
+
+        String type =(String) session.getAttribute("rodzaj");
+        if(type!= null) out.println("<h2>"+type+"</h2>");
 
     }
 
