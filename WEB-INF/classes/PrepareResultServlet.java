@@ -1,27 +1,33 @@
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.PrintWriter;
+import java.util.concurrent.locks.Lock;
 
 public class PrepareResultServlet extends HttpServlet {
-    private ServletContext context;
+//    private ServletContext context;
 
-    public void init(){
-        context = getServletContext();
-    }
+//    public void init(){
+//        context = getServletContext();
+//    }
 
     public void serviceRequest(HttpServletRequest request,
                                HttpServletResponse response)
             throws ServletException, java.io.IOException
     {
+        ServletContext context = getServletContext();
+
         String getRequestServlet = context.getInitParameter("getRequestServlet");
         RequestDispatcher disp = context.getRequestDispatcher(getRequestServlet);
         disp.include(request,response);
 
-        request.setCharacterEncoding("ISO-8859-2");
+//        request.setCharacterEncoding("ISO-8859-2");
 
         HttpSession session = request.getSession();
+        Lock mainLock = (Lock) session.getAttribute("Lock");
+        mainLock.unlock();
+        String type = (String) session.getAttribute("rodzaj");
 
-        response.setContentType("text/html; charset=ISO-8859-2");
+//        response.setContentType("text/html; charset=ISO-8859-2");
 //        response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -43,7 +49,7 @@ public class PrepareResultServlet extends HttpServlet {
         out.println("<td>Dane1</td></tr>");
         out.println("</table>");
 
-        String type =(String) session.getAttribute("rodzaj");
+//        String type =(String) session.getAttribute("rodzaj");
         if(type!= null) out.println("<h2>"+type+"</h2>");
 
     }

@@ -20,10 +20,10 @@ public class GetRequestServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        response.setContentType("text/html; charset=ISO-8859-2");
+//        response.setContentType("text/html; charset=ISO-8859-2");
 
-
-//        response.setCharacterEncoding("UTF-8");
+//create class similar to bundle info
+        response.setCharacterEncoding("ISO-8859-2");
         PrintWriter out = response.getWriter();
 
         out.println("<center><h2>Aplikacja WEB</center></h2><hr>");
@@ -40,8 +40,8 @@ public class GetRequestServlet extends HttpServlet {
             out.println("Wyszukujesz " + param);
             session.setAttribute("rodzaj", param);
         }
-        RequestDispatcher disp = context.getRequestDispatcher(searchDataServlet);
-        disp.forward(request,response);
+//        RequestDispatcher disp = context.getRequestDispatcher(searchDataServlet);
+//        disp.forward(request,response);
     }
 
     public void doGet(HttpServletRequest request,
